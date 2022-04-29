@@ -44,7 +44,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
+    private fun qualityIncreasesWithDateRule(i: Int) {
         if (items[i].quality < 50) {
             items[i].quality = items[i].quality + 1
 
@@ -60,6 +60,10 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
+    }
+
+    private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
+        qualityIncreasesWithDateRule(i)
 
         items[i].sellIn = items[i].sellIn - 1
 
