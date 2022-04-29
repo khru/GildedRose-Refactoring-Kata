@@ -15,22 +15,14 @@ class GildedRose(var items: Array<Item>) {
             } else if (items[i].name == AGED_BRIE) {
                 `Aged Brie`(i)
             } else if (items[i].name == SULFURAS) {
-
+                `Sulfuras`(i)
             } else {
-                if (items[i].quality > 0) {
-                    items[i].quality = items[i].quality - 1
-                }
-
-                passDay(i)
-
-                if (items[i].sellIn < 0) {
-                    if (items[i].quality > 0) {
-                        items[i].quality = items[i].quality - 1
-                    }
-                }
+                regularItems(i)
             }
         }
     }
+
+
 
     private fun qualityIncreasesWithDateRule(i: Int) {
         if (qualityIsLessthanFifty(i)) {
@@ -80,6 +72,24 @@ class GildedRose(var items: Array<Item>) {
         if (items[i].sellIn < 0) {
             if (qualityIsLessthanFifty(i)) {
                 items[i].quality = items[i].quality + 1
+            }
+        }
+    }
+
+    private fun `Sulfuras`(i: Int) {
+
+    }
+
+    private fun regularItems(i: Int) {
+        if (items[i].quality > 0) {
+            items[i].quality = items[i].quality - 1
+        }
+
+        passDay(i)
+
+        if (items[i].sellIn < 0) {
+            if (items[i].quality > 0) {
+                items[i].quality = items[i].quality - 1
             }
         }
     }
