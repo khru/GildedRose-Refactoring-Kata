@@ -19,7 +19,7 @@ class GildedRose(var items: Array<Item>) {
                 }
 
                 if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                    items[i].sellIn = items[i].sellIn - 1
+                    passDay(i)
                 }
 
                 if (items[i].sellIn < 0) {
@@ -63,10 +63,14 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
+    private fun passDay(i: Int) {
+        items[i].sellIn = items[i].sellIn - 1
+    }
+
     private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
         qualityIncreasesWithDateRule(i)
 
-        items[i].sellIn = items[i].sellIn - 1
+        passDay(i)
 
         qualityIsZeroWhenSellInDatePassedRule(i)
     }
@@ -76,7 +80,7 @@ class GildedRose(var items: Array<Item>) {
             items[i].quality = items[i].quality + 1
         }
 
-        items[i].sellIn = items[i].sellIn - 1
+        passDay(i)
 
         if (items[i].sellIn < 0) {
             if (qualityIsLessthanFifty(i)) {
