@@ -35,7 +35,7 @@ class GildedRose(var items: Array<Item>) {
 
     private fun qualityIsZeroWhenSellInDatePassedRule(i: Int) {
         if (items[i].sellIn < 0) {
-            items[i].quality = items[i].quality - items[i].quality
+            items[i].quality = 0
         }
     }
 
