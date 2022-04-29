@@ -10,20 +10,15 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            if (items[i].name == BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT) {
-                `Backstage passes to a TAFKAL80ETC concert`(i)
-            } else if (items[i].name == AGED_BRIE) {
-                `Aged Brie`(i)
-            } else if (items[i].name == SULFURAS) {
-                `Sulfuras`(i)
-            } else {
-                regularItems(i)
+            when (items[i].name) {
+                BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> `Backstage passes to a TAFKAL80ETC concert`(i)
+                AGED_BRIE -> `Aged Brie`(i)
+                SULFURAS -> `Sulfuras`(i)
+                else -> regularItems(i)
             }
         }
     }
-
-
-
+    
     private fun qualityIncreasesWithDateRule(i: Int) {
         if (qualityIsLessthanFifty(i)) {
             items[i].quality = items[i].quality + 1
