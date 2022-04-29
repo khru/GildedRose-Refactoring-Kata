@@ -62,14 +62,18 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
+    private fun qualityIsZeroWhenSellInDatePassedRule(i: Int) {
+        if (items[i].sellIn < 0) {
+            items[i].quality = items[i].quality - items[i].quality
+        }
+    }
+
     private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
         qualityIncreasesWithDateRule(i)
 
         items[i].sellIn = items[i].sellIn - 1
 
-        if (items[i].sellIn < 0) {
-            items[i].quality = items[i].quality - items[i].quality
-        }
+        qualityIsZeroWhenSellInDatePassedRule(i)
     }
 
 }
