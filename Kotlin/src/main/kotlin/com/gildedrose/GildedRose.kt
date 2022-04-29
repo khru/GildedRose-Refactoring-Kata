@@ -19,21 +19,15 @@ class GildedRose(var items: Array<Item>) {
         }
     }
     
-    private fun qualityIncreasesWithDateRule(i: Int) {
-        if (qualityIsLessthanFifty(i)) {
-            items[i].quality = items[i].quality + 1
+    private fun backstagePassesHypeRule(i: Int) {
+        singleIncreaseQuality(i)
 
-            if (items[i].sellIn < 11) {
-                if (qualityIsLessthanFifty(i)) {
-                    items[i].quality = items[i].quality + 1
-                }
-            }
+        if (items[i].sellIn < 11) {
+            singleIncreaseQuality(i)
+        }
 
-            if (items[i].sellIn < 6) {
-                if (qualityIsLessthanFifty(i)) {
-                    items[i].quality = items[i].quality + 1
-                }
-            }
+        if (items[i].sellIn < 6) {
+            singleIncreaseQuality(i)
         }
     }
 
@@ -50,24 +44,26 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
-        qualityIncreasesWithDateRule(i)
+        backstagePassesHypeRule(i)
 
         passDay(i)
 
         qualityIsZeroWhenSellInDatePassedRule(i)
     }
 
-    private fun `Aged Brie`(i: Int) {
+    private fun singleIncreaseQuality(i: Int) {
         if (qualityIsLessthanFifty(i)) {
             items[i].quality = items[i].quality + 1
         }
+    }
+
+    private fun `Aged Brie`(i: Int) {
+        singleIncreaseQuality(i)
 
         passDay(i)
 
         if (items[i].sellIn < 0) {
-            if (qualityIsLessthanFifty(i)) {
-                items[i].quality = items[i].quality + 1
-            }
+            singleIncreaseQuality(i)
         }
     }
 
