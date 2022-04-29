@@ -63,8 +63,6 @@ class GildedRose(var items: Array<Item>) {
         qualityIsZeroWhenSellInDatePassedRule(i)
     }
 
-    private
-
     private fun `Aged Brie`(i: Int) {
         singleIncreaseQuality(i)
 
