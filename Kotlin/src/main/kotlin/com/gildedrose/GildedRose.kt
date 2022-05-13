@@ -7,13 +7,12 @@ class GildedRose(var items: Array<Item>) {
     private val AGED_BRIE = "Aged Brie"
     private val SULFURAS = "Sulfuras, Hand of Ragnaros"
 
-
     fun updateQuality() {
         for (i in items.indices) {
             when (items[i].name) {
                 BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> `Backstage passes to a TAFKAL80ETC concert`(i)
                 AGED_BRIE -> `Aged Brie`(i)
-                SULFURAS -> `Sulfuras`(i)
+                SULFURAS -> Unit
                 else -> regularItems(i)
             }
         }
@@ -71,10 +70,6 @@ class GildedRose(var items: Array<Item>) {
         if (items[i].sellIn < 0) {
             singleIncreaseQuality(i)
         }
-    }
-
-    private fun `Sulfuras`(i: Int) {
-
     }
 
     private fun regularItems(i: Int) {
