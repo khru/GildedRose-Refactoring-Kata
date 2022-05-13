@@ -9,78 +9,79 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            strategy(items[i].name)(i)
+            val item = items[i]
+            strategy(item.name)(item)
         }
     }
 
-    private fun strategy(itemName: String): (Int) -> Unit = when (itemName) {
+    private fun strategy(itemName: String): (Item) -> Unit = when (itemName) {
         BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> ::backstagePassesTo_a_TAFKAL80ETC_concert
         AGED_BRIE -> ::agedBrie
-        SULFURAS -> fun(_: Int) {}
+        SULFURAS -> fun(_: Item) {}
         else -> ::regularItems
     }
 
-    private fun backstagePassesHypeRule(i: Int) {
-        singleIncreaseQuality(i)
+    private fun backstagePassesHypeRule(item: Item) {
+        singleIncreaseQuality(item)
 
-        if (items[i].sellIn < 11) {
-            singleIncreaseQuality(i)
+        if (item.sellIn < 11) {
+            singleIncreaseQuality(item)
         }
 
-        if (items[i].sellIn < 6) {
-            singleIncreaseQuality(i)
-        }
-    }
-
-    private fun qualityIsLessthanFifty(i: Int) = items[i].quality < 50
-
-    private fun qualityIsZeroWhenSellInDatePassedRule(i: Int) {
-        if (items[i].sellIn < 0) {
-            items[i].quality = 0
+        if (item.sellIn < 6) {
+            singleIncreaseQuality(item)
         }
     }
 
-    private fun passDay(i: Int) {
-        items[i].sellIn = items[i].sellIn - 1
-    }
+    private fun qualityIsLessThanFifty(item: Item) = item.quality < 50
 
-    private fun singleIncreaseQuality(i: Int) {
-        if (qualityIsLessthanFifty(i)) {
-            items[i].quality = items[i].quality + 1
+    private fun qualityIsZeroWhenSellInDatePassedRule(item: Item) {
+        if (item.sellIn < 0) {
+            item.quality = 0
         }
     }
 
-    private fun singleDecreaseQuality(i: Int) {
-        if (items[i].quality > 0) {
-            items[i].quality = items[i].quality - 1
+    private fun passDay(item: Item) {
+        item.sellIn = item.sellIn - 1
+    }
+
+    private fun singleIncreaseQuality(item: Item) {
+        if (qualityIsLessThanFifty(item)) {
+            item.quality = item.quality + 1
         }
     }
 
-    private fun backstagePassesTo_a_TAFKAL80ETC_concert(i: Int) {
-        backstagePassesHypeRule(i)
-
-        passDay(i)
-
-        qualityIsZeroWhenSellInDatePassedRule(i)
-    }
-
-    private fun agedBrie(i: Int) {
-        singleIncreaseQuality(i)
-
-        passDay(i)
-
-        if (items[i].sellIn < 0) {
-            singleIncreaseQuality(i)
+    private fun singleDecreaseQuality(item: Item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1
         }
     }
 
-    private fun regularItems(i: Int) {
-        singleDecreaseQuality(i)
+    private fun backstagePassesTo_a_TAFKAL80ETC_concert(item: Item) {
+        backstagePassesHypeRule(item)
 
-        passDay(i)
+        passDay(item)
 
-        if (items[i].sellIn < 0) {
-            singleDecreaseQuality(i)
+        qualityIsZeroWhenSellInDatePassedRule(item)
+    }
+
+    private fun agedBrie(item: Item) {
+        singleIncreaseQuality(item)
+
+        passDay(item)
+
+        if (item.sellIn < 0) {
+            singleIncreaseQuality(item)
+        }
+    }
+
+    private fun regularItems(item: Item) {
+        singleDecreaseQuality(item)
+
+        passDay(item)
+
+        if (item.sellIn < 0) {
+            singleDecreaseQuality(item)
         }
     }
 
