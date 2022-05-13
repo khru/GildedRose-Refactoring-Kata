@@ -9,15 +9,19 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            when (items[i].name) {
-                BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> `Backstage passes to a TAFKAL80ETC concert`(i)
-                AGED_BRIE -> `Aged Brie`(i)
-                SULFURAS -> Unit
-                else -> regularItems(i)
-            }
+            strategy(i)
         }
     }
-    
+
+    private fun strategy(itemName: Int) {
+        when (items[itemName].name) {
+            BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> backstagePassesTo_a_TAFKAL80ETC_concert(itemName)
+            AGED_BRIE -> agedBrie(itemName)
+            SULFURAS -> Unit
+            else -> regularItems(itemName)
+        }
+    }
+
     private fun backstagePassesHypeRule(i: Int) {
         singleIncreaseQuality(i)
 
@@ -54,7 +58,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun `Backstage passes to a TAFKAL80ETC concert`(i: Int) {
+    private fun backstagePassesTo_a_TAFKAL80ETC_concert(i: Int) {
         backstagePassesHypeRule(i)
 
         passDay(i)
@@ -62,7 +66,7 @@ class GildedRose(var items: Array<Item>) {
         qualityIsZeroWhenSellInDatePassedRule(i)
     }
 
-    private fun `Aged Brie`(i: Int) {
+    private fun agedBrie(i: Int) {
         singleIncreaseQuality(i)
 
         passDay(i)

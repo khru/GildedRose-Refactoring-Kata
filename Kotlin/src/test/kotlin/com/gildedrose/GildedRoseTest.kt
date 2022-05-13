@@ -10,12 +10,7 @@ internal class GildedRoseTest {
 
     @Test
     fun outputIsGoldenMaster() {
-        val goldenMaster = String(Files.readAllBytes(Paths.get("src/test/resources/fixture_100_days.txt")))
-        val output = tapSystemOut  {
-            main(emptyArray())
-        }
 
-        assertEquals(goldenMaster, output);
     }
 
 }
