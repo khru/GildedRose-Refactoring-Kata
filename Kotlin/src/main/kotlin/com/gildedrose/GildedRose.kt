@@ -9,17 +9,15 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            strategy(i)
+            strategy(items[i].name)(i)
         }
     }
 
-    private fun strategy(itemName: Int) {
-        when (items[itemName].name) {
-            BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> backstagePassesTo_a_TAFKAL80ETC_concert(itemName)
-            AGED_BRIE -> agedBrie(itemName)
-            SULFURAS -> Unit
-            else -> regularItems(itemName)
-        }
+    private fun strategy(itemName: String): (Int) -> Unit = when (itemName) {
+        BACK_STAGE_TO_A_TAFKAL80ETC_CONCERT -> ::backstagePassesTo_a_TAFKAL80ETC_concert
+        AGED_BRIE -> ::agedBrie
+        SULFURAS -> fun(_: Int) {}
+        else -> ::regularItems
     }
 
     private fun backstagePassesHypeRule(i: Int) {
